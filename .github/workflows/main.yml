@@ -5,6 +5,47 @@ on:
    # paths:
     #  - "azure-vote/**"
 jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      aks-bicep: aks.bicep
+      acr-bicep: acr.bicep
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1.4.3
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Install Bicep CLI
+      run: |
+        curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+        chmod +x ./bicep
+        sudo mv ./bicep /usr/local/bin/bicep
+      shell: bash
+
+    - name: Build ACR Bicep template
+      run: bicep build $acr-bicep
+      working-directory: azure
+      shell: bash
+
+    - name: Build AKS Bicep template
+      run: bicep build $aks-bicep
+      working-directory: azure
+      shell: bash
+
+    - name: Deploy AKS Bicep template to Azure
+      run: |
+        az deployment group create --resource-group ${{ secrets.RESOURCE_GROUP }} --template-file azure/$aks-bicep
+      shell: bash
+
+    - name: Deploy ACR Bicep template to Azure
+      run: |
+        az deployment group create --resource-group ${{ secrets.RESOURCE_GROUP }} --template-file azure/$acr-bicep
+      shell: bash
+
   build:
     runs-on: ubuntu-latest
     steps:
