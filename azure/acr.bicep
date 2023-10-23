@@ -25,3 +25,6 @@ resource acrResource 'Microsoft.ContainerRegistry/registries@2023-01-01-preview'
 
 @description('Output the login server property for later use')
 output loginServer string = acrResource.properties.loginServer
+
+@description('Output the login server property for later use')
+output acrName string = acrName
