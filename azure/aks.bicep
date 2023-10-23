@@ -26,8 +26,9 @@ param linuxAdminUsername string
 @description('Configure all linux machines with the SSH RSA public key string. Your key should include three parts, for example \'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm\'')
 param sshRSAPublicKey string = 'ssh-rsa AAAABhdsutvqsbdjhcbqsjhdbcqsdjhqsdqsjhdljhqsdcvqsjhdvqhjsgdvjhqsgdgcqsjhdgijqgsUcyupgH azureuser@linuxvm'
 
-resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = if(exists(managedClusters(clusterName)),  resourceGroup().name)  {
+resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = {
   name: clusterName
+  condition: not exists(clusterName, 'Microsoft.ContainerService/managedClusters@2022-05-02-preview')
   location: location
   identity: {
     type: 'SystemAssigned'
