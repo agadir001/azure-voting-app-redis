@@ -37,7 +37,7 @@ jobs:
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/aks.bicep
-        parameters: 'sshRSAPublicKey=${{ secrets.ID_RSA_PUB }} dnsPrefix=demoaks linuxAdminUsername=azureuser'
+        parameters: ' linuxAdminUsername=azureuser sshRSAPublicKey=${{ secrets.ID_RSA_PUB }} dnsPrefix=demoaks'
 
   build:
     needs: deploy
