@@ -29,14 +29,12 @@ jobs:
     - name: Deploy Azure resources
       uses: azure/arm-deploy@v1.0.9
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/acr.bicep
       
     - name: Deploy Azure resources
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/aks.bicep
         parameters: 'sshRSAPublicKey=${{ secrets.ID_RSA_PUB }} dnsPrefix=demoaks linuxAdminUsername=azureuser'
