@@ -28,7 +28,6 @@ param sshRSAPublicKey string = 'ssh-rsa AAAABhdsutvqsbdjhcbqsjhdbcqsdjhqsdqsjhdl
 
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' = {
   name: clusterName
-  #condition: !exist(clusterName, 'Microsoft.ContainerService/managedClusters@2022-05-02-preview')
   location: location
   identity: {
     type: 'SystemAssigned'
