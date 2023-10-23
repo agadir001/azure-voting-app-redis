@@ -9,9 +9,9 @@ param location string = resourceGroup().location
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'
 
-resource acrExist 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
-  name: 'acrName'
-}
+//resource acrExist 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' existing = {
+ // name: 'acrName'
+//}
 resource acrResource 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = if(acrExist.id == null) {
   name: acrName
   location: location
