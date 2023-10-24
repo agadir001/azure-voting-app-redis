@@ -14,7 +14,7 @@ param aksName string
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  existing = {
   name: aksName
 }
-output aksPrincipalID string = aks.properties.identityProfile.kubeletidentity.objectId
+//output aksPrincipalID string = aks.properties.identityProfile.kubeletidentity.objectId
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
   name: acrName
