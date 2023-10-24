@@ -5,6 +5,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      deploy_aks: false
       aks-bicep: aks.bicep
       acr-bicep: acr.bicep
     steps:
@@ -15,21 +16,21 @@ jobs:
       uses: azure/login@v1.4.3
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - uses: azure/arm-deploy@v1
-      name: Run preflight AKS bicep validation
-      with:
-        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
-        template: ./azure/aks.bicep
-        parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
-        deploymentMode: Validate
+
+#    - uses: azure/arm-deploy@v1
+#      name: Run preflight AKS bicep validation
+#      with:
+#        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+#        template: ./azure/aks.bicep
+#        parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
+#        deploymentMode: Validate
         
-    - name: Deploy Azure AKS resources
-      uses: azure/arm-deploy@v1
-      with:
-        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
-        template: ./azure/aks.bicep
-        parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
+ #   - name: Deploy Azure AKS resources
+ #     uses: azure/arm-deploy@v1
+ #     with:
+ #       resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+ #       template: ./azure/aks.bicep
+ #       parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
       
     - name: Run preflight acr bicep validation
       uses: azure/arm-deploy@v1.0.9
