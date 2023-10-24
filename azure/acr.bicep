@@ -10,7 +10,7 @@ param location string = resourceGroup().location
 param acrSku string = 'Basic'
 
 param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-param aksName string
+param aksName string 
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  existing = {
   name: aksName
 }
