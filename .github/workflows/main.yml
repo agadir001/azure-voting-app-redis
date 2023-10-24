@@ -17,19 +17,11 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - uses: azure/arm-deploy@v1
-      name: Run preflight validation
+      name: Run preflight AKS bicep validation
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/aks.bicep
         parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
-        deploymentMode: Validate
-      
-    - name: Deploy Azure ACR resources
-      uses: azure/arm-deploy@v1.0.9
-      with:
-        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
-        template: ./azure/acr.bicep
-        parameters: ' aksName=aks101cluster'
         deploymentMode: Validate
         
     - name: Deploy Azure AKS resources
@@ -39,19 +31,20 @@ jobs:
         template: ./azure/aks.bicep
         parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
       
+    - name: Run preflight acr bicep validation
+      uses: azure/arm-deploy@v1.0.9
+      with:
+        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+        template: ./azure/acr.bicep
+        parameters: ' aksName=aks101cluster'
+        deploymentMode: Validate
+      
     - name: Deploy Azure ACR resources
       uses: azure/arm-deploy@v1.0.9
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/acr.bicep
         parameters: ' aksName=aks101cluster'
-        
-    - name: Deploy Azure resources
-      uses: azure/arm-deploy@v1
-      with:
-        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
-        template: ./azure/aks.bicep
-        parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
 # sshRSAPublicKey=${{ secrets.ID_RSA_PUB }}
   build:
     needs: deploy
