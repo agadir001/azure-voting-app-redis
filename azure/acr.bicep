@@ -9,7 +9,7 @@ param location string = resourceGroup().location
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'
 
-param roleAcrPull string = 'AcrPull'
+param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 param aksName string 
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  existing = {
   name: aksName
@@ -41,7 +41,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
     roleDefinitionId: roleDef.id
   }
   dependsOn : [
-    acr
+    roleDef
   ]
 }
 
