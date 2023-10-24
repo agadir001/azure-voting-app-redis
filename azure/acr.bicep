@@ -9,7 +9,7 @@ param location string = resourceGroup().location
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'
 
-param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+param roleAcrPull string = 'AcrPull'
 param aksName string 
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  existing = {
   name: aksName
@@ -27,6 +27,10 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
     adminUserEnabled: false
   }
 }
+resource roleDef 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
+  name: roleAcrPull
+  scope: subscription()
+}
 resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
   name: 'AssignAcrPullToAks'
   scope: acr
@@ -34,7 +38,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
     description: 'Assign AcrPull role to AKS'
     principalId: aks.identity.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: 'AcrPull' //guid(roleAcrPull)
+    roleDefinitionId: roleDef.id
   }
 }
 
