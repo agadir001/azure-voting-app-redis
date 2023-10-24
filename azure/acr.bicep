@@ -41,7 +41,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
     roleDefinitionId: roleDef.id
   }
   dependsOn : [
-    acrName
+    acr
   ]
 }
 
