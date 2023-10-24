@@ -62,12 +62,26 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' =  
     }
   }
 }
-
-resource acrRoleAssignment 'Microsoft.Authorization/roleAssignments@2021-07-01' = {
+resource symbolicname 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: 'string'
+  scope: resourceSymbolicName or tenant()
+  properties: {
+    condition: 'string'
+    conditionVersion: 'string'
+    delegatedManagedIdentityResourceId: 'string'
+    description: 'string'
+    principalId: 'string'
+    principalType: 'string'
+    roleDefinitionId: 'string'
+  }
+}
+resource acrRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-011' = {
   name: 'aks-to-acr-role-assignment'
   scope: aks.id
+  properties: {
   roleDefinitionId: '/subscriptions/${SUBSCRIPTION_ID}/providers/Microsoft.Authorization/roleDefinitions/acrpull'
-  assignee: aks.identity.principalId
+  principalId: aks.identity.principalId
+}
 }
 
 output controlPlaneFQDN string = aks.properties.fqdn
