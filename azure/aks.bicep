@@ -26,10 +26,6 @@ param linuxAdminUsername string
 @description('Configure all linux machines with the SSH RSA public key string. Your key should include three parts, for example \'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm\'')
 param sshRSAPublicKey string = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClOb5UpK1cFv+rJX5kbFJ30M8pRHqHV4EdCWOsbqaVOMTVwqnYavy5IHCnceVVMKh3exAWWwChzAHo0xbjAmOryNHEA+K/kFBWi5QwBKX70k5M5ozeT2zzuUPZrFt//HmE8GiMh/VlKDbmz2iRoDJLR5KMHZyPMdmuvCbKedGyLn70KOvV94UjyaQx2jSe+O0BCt+dVdUJEP9/XAqFb5vUHHWpCVyo4EMtRJS09devD2ntzh42u9Tw8cXq5dNDMxIcbhKVfXAlpR9ol9mTCJ/Zu75zmfFE/imy1/QSXGUj9kIJ0jiZ3UbnY0Ylut/HF5TUX87oUfLj6QnBpek+wh08qQuJaVy0CYfZa24bVQ8gAN4iEYwXcwuvPnHb+tv7t9B+Fzol8PeDfGbR5CsIkWQQ3kW2qnPKK+/EeUgY8KJkqqPG24Z6u0bzPBcSrikrwoimntV8d27YHs8X9+9poZAbpO9mDxQQHmmTXJXSYgWNMXEpDip09h2ASjzsVBV4qcE= azureuser@linuxvm'
 
-@description('Ths subscription ID.')
-param SUBSCRIPTION_ID string
-param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-
 //resource aksExist 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' existing = {
   //name: 'acrName'
 //}if(aksExist.id == null)
@@ -63,5 +59,4 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' =  
     }
   }
 }
-
 output controlPlaneFQDN string = aks.properties.fqdn
