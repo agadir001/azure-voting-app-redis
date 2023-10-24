@@ -45,7 +45,7 @@ jobs:
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/acr.bicep
-        parameters: ' aksName=aks101cluster'
+     #   parameters: ' aksName=aks101cluster'
 # sshRSAPublicKey=${{ secrets.ID_RSA_PUB }}
   build:
     needs: deploy
