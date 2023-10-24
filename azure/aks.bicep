@@ -28,6 +28,7 @@ param sshRSAPublicKey string = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClOb5UpK1c
 
 @description('Ths subscription ID.')
 param SUBSCRIPTION_ID string
+param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 
 //resource aksExist 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' existing = {
   //name: 'acrName'
@@ -60,14 +61,6 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' =  
         ]
       }
     }
-  }
-}
-resource acrRoleAssignment 'Microsoft.Authorization/roleAssignments@2021-04-01-preview' = {
-  name: 'aks-to-acr-role-assignment'
-  scope: aks.id
-  properties: {
-    roleDefinitionId: '/subscriptions/${SUBSCRIPTION_ID}/providers/Microsoft.Authorization/roleDefinitions/acrpull'
-    principalId: aks.identity.principalId
   }
 }
 
