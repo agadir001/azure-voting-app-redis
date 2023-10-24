@@ -27,7 +27,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
   }
 }
 resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: 'AssignAcrPullToAks'
+  name: guid(resourceGroup().id, acrName, aks.identity.principalId, 'AssignAcrPullToAks')
   scope: acr
   properties: {
     description: 'Assign AcrPull role to AKS'
