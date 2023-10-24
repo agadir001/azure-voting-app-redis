@@ -23,11 +23,12 @@ jobs:
         template: ./azure/aks.bicep
         parameters: ' linuxAdminUsername=azureuser  dnsPrefix=demoaks'
       
-    - name: Deploy Azure resources
+    - name: Deploy Azure ACR resources
       uses: azure/arm-deploy@v1.0.9
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/acr.bicep
+        parameters: ' aksName=aks101cluster'
         
     - name: Deploy Azure resources
       uses: azure/arm-deploy@v1
