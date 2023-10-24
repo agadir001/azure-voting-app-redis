@@ -37,7 +37,7 @@ jobs:
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         template: ./azure/acr.bicep
-        parameters: ' aksName=aks101cluster'
+        #parameters: ' aksName=aks101cluster'
         deploymentMode: Validate
       
     - name: Deploy Azure ACR resources
