@@ -62,7 +62,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' =  
     }
   }
 }
-resource acrRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-011' = {
+resource acrRoleAssignment 'Microsoft.Authorization/roleAssignments@2021-04-01-preview' = {
   name: 'aks-to-acr-role-assignment'
   scope: aks.id
   properties: {
