@@ -32,7 +32,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
   properties: {
     description: 'Assign AcrPull role to AKS'
     principalId: aks.identity.principalId
-    principalType: 'aksPrincipalID'
+    principalType: aksPrincipalID
     roleDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/${roleAcrPull}'
   }
 }
