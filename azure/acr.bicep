@@ -9,7 +9,6 @@ param location string = resourceGroup().location
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'
 
-param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 param aks string = 'aks101cluster'
 param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
 
