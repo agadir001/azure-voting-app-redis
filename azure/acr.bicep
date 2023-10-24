@@ -10,13 +10,13 @@ param location string = resourceGroup().location
 param acrSku string = 'Basic'
 
 param roleAcrPull string = '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-
+param aksName string
 resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  existing = {
   name: aksName
-}//if(acrExist.id == null)
+}
 output aksPrincipalID string = aks.properties.identityProfile.kubeletidentity.objectId
 
-resource acrResource 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
+resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
   name: acrName
   location: location
   sku: {
@@ -33,7 +33,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
     description: 'Assign AcrPull role to AKS'
     principalId: aks.identity.principalId
     principalType: aksPrincipalID
-    roleDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/${roleAcrPull}'
+    roleDefinitionId: roleAcrPull
   }
 }
 
