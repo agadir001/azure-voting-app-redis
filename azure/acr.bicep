@@ -26,16 +26,5 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
     adminUserEnabled: false
   }
 }
-resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: 'AssignAcrPullToAks'
-  scope: acr
-  properties: {
-    description: 'Assign AcrPull role to AKS'
-    principalId: aks.identity.principalId
-    principalType: 'ServicePrincipal'
-    roleDefinitionId: roleAcrPull
-  }
-}
-
 @description('Output the login server property for later use')
 output loginServer string = acr.properties.loginServer
