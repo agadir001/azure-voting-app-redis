@@ -32,7 +32,7 @@ resource roleDef 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' ex
   scope: subscription()
 }
 resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: 'AssignAcrPullToAks'
+  name: guid(subscriptionId, acrName, roleDef.id, aks.identity.principalId)
   scope: acr
   properties: {
     description: 'Assign AcrPull role to AKS'
