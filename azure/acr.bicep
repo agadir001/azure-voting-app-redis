@@ -15,6 +15,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2022-05-02-preview'  ex
   name: aksName
 }
 //output aksPrincipalID string = aks.properties.identityProfile.kubeletidentity.objectId
+//param subscriptionId string = subscription().subscriptionId
 
 resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' =  {
   name: acrName
@@ -33,7 +34,7 @@ resource assignAcrPullToAks 'Microsoft.Authorization/roleAssignments@2020-04-01-
     description: 'Assign AcrPull role to AKS'
     principalId: aks.identity.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: guid(roleAcrPull)
+    roleDefinitionId: 'AcrPull' //guid(roleAcrPull)
   }
 }
 
