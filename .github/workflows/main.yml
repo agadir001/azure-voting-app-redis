@@ -4,7 +4,7 @@ on:
 jobs:
   build:
     #needs: deploy
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
