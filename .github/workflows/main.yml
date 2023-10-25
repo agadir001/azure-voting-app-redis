@@ -4,7 +4,7 @@ on:
 jobs:
   build:
     #needs: deploy
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout source code 
         uses: actions/checkout@v3
